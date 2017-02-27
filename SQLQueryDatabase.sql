@@ -18,7 +18,7 @@ ELSE
     RAISERROR('ERROR IN BATCH FILE, ''USE db_name'' FAILED!  KILLING THE SPID NOW.',22,127) WITH LOG
  
 GO
-EXECUTE SP_DBOPTION 'db_name' ,'TRUNC. LOG ON CHKPT.' ,'TRUE'
+EXECUTE SP_DBOPTION 'HandIn2DAB' ,'TRUNC. LOG ON CHKPT.' ,'TRUE'
 GO
 
 --
@@ -35,8 +35,8 @@ CREATE TABLE Adresse (
     Vejnavn        VARCHAR NOT NULL,
     HusNr          BIGINT NOT NULL,
     PostNr         BIGINT NOT NULL,
-    Bynavn         VARCHAR NOT NULL,
-    Type           VARCHAR NOT NULL,
+    Bynavn         NVARCHAR(255) NOT NULL,
+    Type           NVARCHAR(255) NOT NULL,
 CONSTRAINT pk_Adresse PRIMARY KEY CLUSTERED (AdresseId))
 GO
 
@@ -72,13 +72,13 @@ GO
 --
 CREATE TABLE TelefonNr (
     TelefonId      BIGINT NOT NULL,
-    Type           VARCHAR NOT NULL,
+    Type           NVARCHAR(255) NOT NULL,
     Nummer         BIGINT NOT NULL,
     PersonId       BIGINT NOT NULL,
 CONSTRAINT pk_TelefonNr PRIMARY KEY CLUSTERED (TelefonId),
 CONSTRAINT fk_TelefonNr FOREIGN KEY (PersonId)
     REFERENCES Person (PersonId)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 GO
 
@@ -99,8 +99,8 @@ CONSTRAINT fk_HarAdresse FOREIGN KEY (AdresseId)
     ON UPDATE CASCADE,
 CONSTRAINT fk_HarAdresse2 FOREIGN KEY (PersonId)
     REFERENCES Person (PersonId)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE CA
+    ON UPDATE NO ACTION)
 GO
 
 --

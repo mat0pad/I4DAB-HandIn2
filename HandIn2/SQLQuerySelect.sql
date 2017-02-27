@@ -1,0 +1,6 @@
+﻿
+USE HandIn2DAB
+GO
+
+
+SELECT* FROM Adresse;
